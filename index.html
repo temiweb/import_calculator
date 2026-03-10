@@ -9,548 +9,548 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg: #ffffff; --surface: #f7f7f6; --surface2: #eeeeed;
-  --border: #ddd; --border2: #ccc;
-  --text: #111; --text2: #333; --text3: #666; --text4: #999; --text5: #bbb;
-  --accent: #4f46e5; --accent-soft: #4f46e510;
-  --green: #059669; --green-bg: #05966912; --green-border: #05966930;
-  --red: #dc2626; --red-bg: #dc262610;
-  --amber: #d97706; --amber-bg: #d9770610; --amber-border: #d9770630;
-  --indigo-bg: #4f46e510; --indigo-border: #4f46e525;
-  --toggle-bg: #e7e5e4; --toggle-active: #1a1a1a; --toggle-active-text: #fff;
-  --card-text: #111; --field-bg: #f7f7f6;
-  --shadow: 0 1px 2px rgba(0,0,0,0.04);
-  --tab-inactive: #f7f7f6; --tab-active-ng: #059669; --tab-active-gh: #d97706;
+  --bg:#fff;--surface:#f7f7f6;--surface2:#eee;--border:#ddd;--border2:#ccc;
+  --text:#111;--text2:#333;--text3:#666;--text4:#999;--text5:#bbb;
+  --accent:#4f46e5;--accent-soft:#4f46e510;
+  --green:#059669;--green-bg:#05966912;--green-border:#05966930;
+  --red:#dc2626;--red-bg:#dc262610;--red-border:#dc262630;
+  --amber:#d97706;--amber-bg:#d9770610;--amber-border:#d9770630;
+  --indigo-bg:#4f46e510;--indigo-border:#4f46e525;
+  --toggle-bg:#e7e5e4;--toggle-active:#1a1a1a;--toggle-active-text:#fff;
+  --card-text:#111;--field-bg:#f7f7f6;
+  --shadow:0 1px 2px rgba(0,0,0,.04);
+  --nav-bg:#f7f7f6;--nav-active:#111;--nav-active-text:#fff;--nav-inactive:#999;
 }
-
 [data-theme="dark"] {
-  --bg: #0a0a0a; --surface: #161616; --surface2: #1e1e1e;
-  --border: #2a2a2a; --border2: #3a3a3a;
-  --text: #f0f0f0; --text2: #ccc; --text3: #999; --text4: #666; --text5: #444;
-  --accent: #818cf8; --accent-soft: #818cf815;
-  --green: #34d399; --green-bg: #34d39915; --green-border: #34d39930;
-  --red: #f87171; --red-bg: #f8717115;
-  --amber: #fbbf24; --amber-bg: #fbbf2412; --amber-border: #fbbf2430;
-  --indigo-bg: #818cf812; --indigo-border: #818cf825;
-  --toggle-bg: #1e1e1e; --toggle-active: #f0f0f0; --toggle-active-text: #0a0a0a;
-  --card-text: #f0f0f0; --field-bg: #141414;
-  --shadow: 0 1px 3px rgba(0,0,0,0.3);
-  --tab-inactive: #161616; --tab-active-ng: #34d399; --tab-active-gh: #fbbf24;
+  --bg:#0a0a0a;--surface:#161616;--surface2:#1e1e1e;--border:#2a2a2a;--border2:#3a3a3a;
+  --text:#f0f0f0;--text2:#ccc;--text3:#999;--text4:#666;--text5:#444;
+  --accent:#818cf8;--accent-soft:#818cf815;
+  --green:#34d399;--green-bg:#34d39915;--green-border:#34d39930;
+  --red:#f87171;--red-bg:#f8717115;--red-border:#f8717130;
+  --amber:#fbbf24;--amber-bg:#fbbf2412;--amber-border:#fbbf2430;
+  --indigo-bg:#818cf812;--indigo-border:#818cf825;
+  --toggle-bg:#1e1e1e;--toggle-active:#f0f0f0;--toggle-active-text:#0a0a0a;
+  --card-text:#f0f0f0;--field-bg:#141414;
+  --shadow:0 1px 3px rgba(0,0,0,.3);
+  --nav-bg:#141414;--nav-active:#f0f0f0;--nav-active-text:#0a0a0a;--nav-inactive:#555;
 }
+body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+.container{max-width:540px;margin:0 auto;padding:36px 20px 80px}
+.top-nav{display:flex;gap:4px;background:var(--nav-bg);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:32px}
+.nav-btn{flex:1;padding:10px 8px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;border:none;border-radius:9px;cursor:pointer;transition:all .2s;text-align:center;background:transparent;color:var(--nav-inactive)}
+.nav-btn.active{background:var(--nav-active);color:var(--nav-active-text);font-weight:600;box-shadow:var(--shadow)}
+.nav-btn:not(.active):hover{color:var(--text3)}
+.page{display:none}.page.active{display:block}
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px}
+.header-left{display:flex;flex-direction:column;gap:4px}
+.header-row{display:flex;align-items:center;gap:10px}
+.logo{width:34px;height:34px;border-radius:9px;background:var(--text);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:17px}
+.header h1{font-size:22px;font-weight:700;letter-spacing:-.03em;color:var(--text)}
+.header p{font-size:13px;color:var(--text4);margin-left:44px}
+.theme-btn{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;margin-top:2px}
+.theme-btn:hover{background:var(--surface2)}
+.section{margin-bottom:28px}
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-bar{width:3px;height:18px;border-radius:2px}
+.section-title{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+.toggle{display:inline-flex;background:var(--toggle-bg);border-radius:10px;padding:3px;gap:2px;flex-wrap:wrap}
+.toggle-btn{padding:7px 14px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:400;color:var(--text3);background:transparent;border:none;border-radius:8px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.toggle-btn.active{font-weight:600;color:var(--toggle-active-text);background:var(--toggle-active);box-shadow:var(--shadow)}
+/* Coloured market toggle */
+.market-toggle{display:inline-flex;background:var(--toggle-bg);border-radius:10px;padding:3px;gap:2px;flex-wrap:wrap}
+.mt-btn{padding:7px 14px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:400;color:var(--text4);background:transparent;border:none;border-radius:8px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.mt-btn.active-ng{font-weight:600;background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.mt-btn.active-gh{font-weight:600;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
 
-body {
-  font-family: 'DM Sans', -apple-system, sans-serif;
-  background: var(--bg); color: var(--text);
-  min-height: 100vh; -webkit-font-smoothing: antialiased;
-  transition: background 0.3s, color 0.3s;
-}
-.container { max-width: 540px; margin: 0 auto; padding: 36px 20px 80px; }
-
-.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; }
-.header-left { display: flex; flex-direction: column; gap: 4px; }
-.header-row { display: flex; align-items: center; gap: 10px; }
-.logo {
-  width: 34px; height: 34px; border-radius: 9px; background: var(--text); color: var(--bg);
-  display: flex; align-items: center; justify-content: center; font-size: 17px;
-}
-.header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; color: var(--text); }
-.header p { font-size: 13px; color: var(--text4); margin-left: 44px; }
-.theme-btn {
-  width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border);
-  background: var(--surface); cursor: pointer; font-size: 18px;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s; flex-shrink: 0; margin-top: 2px;
-}
-.theme-btn:hover { background: var(--surface2); }
-
-.section { margin-bottom: 28px; }
-.section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.section-bar { width: 3px; height: 18px; border-radius: 2px; }
-.section-title { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); }
-
-.toggle { display: inline-flex; background: var(--toggle-bg); border-radius: 10px; padding: 3px; gap: 2px; flex-wrap: wrap; }
-.toggle-btn {
-  padding: 7px 14px; font-size: 13px; font-family: 'DM Sans', sans-serif;
-  font-weight: 400; color: var(--text3); background: transparent; border: none;
-  border-radius: 8px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
-}
-.toggle-btn.active { font-weight: 600; color: var(--toggle-active-text); background: var(--toggle-active); box-shadow: var(--shadow); }
-
-.field-row { display: flex; gap: 12px; flex-wrap: wrap; }
-.field-row + .field-row { margin-top: 12px; }
-.field { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 120px; }
-.field.half { max-width: calc(50% - 6px); }
-.field label { font-size: 12px; color: var(--text4); font-weight: 500; }
-.field-input {
-  display: flex; align-items: center; background: var(--field-bg);
-  border: 1px solid var(--border); border-radius: 10px;
-  padding: 0 14px; height: 44px; transition: border-color 0.2s;
-}
-.field-input:focus-within { border-color: var(--accent); }
-.field-input .prefix, .field-input .suffix { font-family: 'DM Mono', monospace; flex-shrink: 0; }
-.field-input .prefix { font-size: 14px; margin-right: 6px; color: var(--text3); }
-.field-input .suffix { font-size: 11px; margin-left: 6px; color: var(--text4); }
-.field-input input {
-  flex: 1; border: none; background: transparent; outline: none;
-  font-size: 15px; color: var(--text2); font-family: 'DM Mono', monospace;
-  width: 100%; min-width: 0;
-}
-.field-input input::placeholder { color: var(--text5); }
-
-.rates-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.rates-header span { font-size: 12px; color: var(--text5); }
-.rates-header button { font-size: 12px; color: var(--accent); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; }
-.rates-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-.rates-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px; font-size: 12px; font-family: 'DM Mono', monospace; color: var(--text2); }
-.rates-pill span { color: var(--text4); margin-right: 4px; }
-.rates-edit { display: flex; flex-direction: column; gap: 10px; }
-
-/* Logistics */
-.logistics-item {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-  padding: 14px 16px; margin-bottom: 10px; transition: border-color 0.2s;
-}
-.logistics-item:hover { border-color: var(--border2); }
-.logistics-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.logistics-label { font-size: 13px; font-weight: 600; color: var(--text2); }
-.logistics-tag {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 3px 8px; border-radius: 5px;
-}
-.tag-ng { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-.tag-gh { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
-.tag-custom { background: var(--indigo-bg); color: var(--accent); border: 1px solid var(--indigo-border); }
-.logistics-fields { display: flex; gap: 10px; align-items: flex-end; }
-.logistics-fields .field { min-width: 80px; }
-.logistics-per-unit { font-size: 12px; color: var(--text4); margin-top: 8px; font-family: 'DM Mono', monospace; }
-.logistics-per-unit strong { color: var(--text2); font-weight: 600; }
-.logistics-remove {
-  background: none; border: none; color: var(--text5); cursor: pointer;
-  font-size: 18px; line-height: 1; padding: 2px 6px; border-radius: 6px; transition: all 0.15s;
-}
-.logistics-remove:hover { color: var(--red); background: var(--red-bg); }
-
-.logistics-market-select {
-  font-size: 12px; font-family: 'DM Sans', sans-serif; font-weight: 500;
-  background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
-  color: var(--text2); padding: 3px 8px; cursor: pointer; outline: none;
-}
-.logistics-market-select:focus { border-color: var(--accent); }
-
-.add-btn {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  width: 100%; padding: 10px; background: var(--surface); border: 1px dashed var(--border);
-  border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 500;
-  color: var(--text4); font-family: 'DM Sans', sans-serif; transition: all 0.2s;
-}
-.add-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
-
-.editable-label {
-  background: none; border: none; border-bottom: 1px dashed var(--border);
-  font-size: 13px; font-weight: 600; color: var(--text2);
-  font-family: 'DM Sans', sans-serif; outline: none; padding: 0 0 2px; max-width: 180px;
-}
-.editable-label:focus { border-color: var(--accent); }
-
-/* Market Tabs */
-.market-tabs { display: flex; gap: 0; margin-bottom: 0; }
-.market-tab {
-  flex: 1; padding: 12px 16px; font-size: 13px; font-weight: 600;
-  font-family: 'DM Sans', sans-serif; border: 1px solid var(--border);
-  cursor: pointer; transition: all 0.2s; text-align: center;
-  background: var(--tab-inactive); color: var(--text4);
-}
-.market-tab:first-child { border-radius: 12px 0 0 0; }
-.market-tab:last-child { border-radius: 0 12px 0 0; }
-.market-tab:only-child { border-radius: 12px 12px 0 0; }
-.market-tab.active-ng {
-  background: var(--green-bg); color: var(--green);
-  border-color: var(--green-border); border-bottom-color: transparent;
-}
-.market-tab.active-gh {
-  background: var(--amber-bg); color: var(--amber);
-  border-color: var(--amber-border); border-bottom-color: transparent;
-}
-.market-tab .tab-flag { margin-right: 6px; }
-
-.market-panel {
-  border: 1px solid var(--border); border-top: none;
-  border-radius: 0 0 14px 14px; padding: 18px; background: var(--surface);
-}
-
-/* Breakdown inside panel */
-.breakdown { margin-bottom: 16px; }
-.breakdown-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; }
-.breakdown-row:not(:last-child) { border-bottom: 1px solid var(--border); }
-.breakdown-row .lbl { font-size: 13px; color: var(--text3); }
-.breakdown-row .val { font-size: 13px; font-family: 'DM Mono', monospace; color: var(--text2); }
-.breakdown-row.total { margin-top: 4px; padding-top: 12px; }
-.breakdown-row.total .lbl { font-weight: 600; color: var(--text); }
-.breakdown-row.total .val { font-weight: 700; color: var(--text); font-size: 15px; }
-
-.cards { display: flex; gap: 12px; flex-wrap: wrap; }
-.card { border-radius: 12px; padding: 16px 18px; flex: 1; min-width: 150px; border: 1px solid; }
-.card .card-label { font-size: 11px; color: var(--text3); font-weight: 500; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
-.card .card-value { font-size: 20px; font-weight: 700; color: var(--card-text); font-family: 'DM Mono', monospace; letter-spacing: -0.02em; }
-.card .card-sub { font-size: 11px; color: var(--text4); margin-top: 4px; font-family: 'DM Mono', monospace; }
-.card-green { background: var(--green-bg); border-color: var(--green-border); }
-.card-amber { background: var(--amber-bg); border-color: var(--amber-border); }
-
-.base-cost-note {
-  font-size: 12px; color: var(--text4); font-family: 'DM Mono', monospace;
-  padding: 10px 14px; background: var(--surface); border: 1px solid var(--border);
-  border-radius: 10px; margin-bottom: 20px; text-align: center;
-}
-.base-cost-note strong { color: var(--text2); }
-
-@media (max-width: 400px) {
-  .container { padding: 24px 16px 60px; }
-  .field { min-width: 100px; }
-  .card { min-width: 130px; }
-  .card .card-value { font-size: 17px; }
-  .logistics-fields { flex-wrap: wrap; }
-  .market-tab { padding: 10px 12px; font-size: 12px; }
-}
+.field-row{display:flex;gap:12px;flex-wrap:wrap}.field-row+.field-row{margin-top:12px}
+.field{display:flex;flex-direction:column;gap:5px;flex:1;min-width:120px}
+.field.half{max-width:calc(50% - 6px)}
+.field label{font-size:12px;color:var(--text4);font-weight:500}
+.field-input{display:flex;align-items:center;background:var(--field-bg);border:1px solid var(--border);border-radius:10px;padding:0 14px;height:44px;transition:border-color .2s}
+.field-input:focus-within{border-color:var(--accent)}
+.field-input .prefix,.field-input .suffix{font-family:'DM Mono',monospace;flex-shrink:0}
+.field-input .prefix{font-size:14px;margin-right:6px;color:var(--text3)}
+.field-input .suffix{font-size:11px;margin-left:6px;color:var(--text4)}
+.field-input input{flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text2);font-family:'DM Mono',monospace;width:100%;min-width:0}
+.field-input input::placeholder{color:var(--text5)}
+.rates-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.rates-header span{font-size:12px;color:var(--text5)}
+.rates-header button{font-size:12px;color:var(--accent);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600}
+.rates-pills{display:flex;flex-wrap:wrap;gap:8px}
+.rates-pill{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:12px;font-family:'DM Mono',monospace;color:var(--text2)}
+.rates-pill span{color:var(--text4);margin-right:4px}
+.rates-edit{display:flex;flex-direction:column;gap:10px}
+.logistics-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;transition:border-color .2s}
+.logistics-item:hover{border-color:var(--border2)}
+.logistics-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.logistics-label{font-size:13px;font-weight:600;color:var(--text2)}
+.logistics-tag{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px}
+.tag-ng{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.tag-gh{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.tag-custom{background:var(--indigo-bg);color:var(--accent);border:1px solid var(--indigo-border)}
+.logistics-fields{display:flex;gap:10px;align-items:flex-end}
+.logistics-fields .field{min-width:80px}
+.logistics-per-unit{font-size:12px;color:var(--text4);margin-top:8px;font-family:'DM Mono',monospace}
+.logistics-per-unit strong{color:var(--text2);font-weight:600}
+.logistics-remove{background:none;border:none;color:var(--text5);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px;border-radius:6px;transition:all .15s}
+.logistics-remove:hover{color:var(--red);background:var(--red-bg)}
+.logistics-market-select{font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text2);padding:3px 8px;cursor:pointer;outline:none}
+.add-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;background:var(--surface);border:1px dashed var(--border);border-radius:10px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text4);font-family:'DM Sans',sans-serif;transition:all .2s}
+.add-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.editable-label{background:none;border:none;border-bottom:1px dashed var(--border);font-size:13px;font-weight:600;color:var(--text2);font-family:'DM Sans',sans-serif;outline:none;padding:0 0 2px;max-width:180px}
+.editable-label:focus{border-color:var(--accent)}
+.market-tabs{display:flex;gap:0}
+.market-tab{flex:1;padding:12px 16px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;border:1px solid var(--border);cursor:pointer;transition:all .2s;text-align:center;background:var(--surface);color:var(--text4)}
+.market-tab:first-child{border-radius:12px 0 0 0}.market-tab:last-child{border-radius:0 12px 0 0}.market-tab:only-child{border-radius:12px 12px 0 0}
+.market-tab.active-ng{background:var(--green-bg);color:var(--green);border-color:var(--green-border);border-bottom-color:transparent}
+.market-tab.active-gh{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border);border-bottom-color:transparent}
+.market-tab .tab-flag{margin-right:6px}
+.market-panel{border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;padding:18px;background:var(--surface)}
+.breakdown{margin-bottom:16px}
+.breakdown-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0}
+.breakdown-row:not(:last-child){border-bottom:1px solid var(--border)}
+.breakdown-row .lbl{font-size:13px;color:var(--text3)}.breakdown-row .val{font-size:13px;font-family:'DM Mono',monospace;color:var(--text2)}
+.breakdown-row.total{margin-top:4px;padding-top:12px}
+.breakdown-row.total .lbl{font-weight:600;color:var(--text)}.breakdown-row.total .val{font-weight:700;color:var(--text);font-size:15px}
+.cards{display:flex;gap:12px;flex-wrap:wrap}
+.card{border-radius:12px;padding:16px 18px;flex:1;min-width:150px;border:1px solid}
+.card .card-label{font-size:11px;color:var(--text3);font-weight:500;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+.card .card-value{font-size:20px;font-weight:700;color:var(--card-text);font-family:'DM Mono',monospace;letter-spacing:-.02em}
+.card .card-sub{font-size:11px;color:var(--text4);margin-top:4px;font-family:'DM Mono',monospace}
+.card-green{background:var(--green-bg);border-color:var(--green-border)}
+.card-amber{background:var(--amber-bg);border-color:var(--amber-border)}
+.card-indigo{background:var(--indigo-bg);border-color:var(--indigo-border)}
+.card-red{background:var(--red-bg);border-color:var(--red-border)}
+.base-cost-note{font-size:12px;color:var(--text4);font-family:'DM Mono',monospace;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:20px;text-align:center}
+.base-cost-note strong{color:var(--text2)}
+.cost-source{margin-bottom:16px}
+.cost-source-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.cost-source-toggle{display:inline-flex;background:var(--toggle-bg);border-radius:8px;padding:2px;gap:2px}
+.cost-source-toggle button{padding:5px 12px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;border:none;border-radius:6px;cursor:pointer;transition:all .2s;color:var(--text4);background:transparent}
+.cost-source-toggle button.active{background:var(--toggle-active);color:var(--toggle-active-text);font-weight:600}
+.cost-auto{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--green-bg);border:1px solid var(--green-border);border-radius:10px;font-size:13px}
+.cost-auto .ca-label{color:var(--text3)}.cost-auto .ca-val{font-family:'DM Mono',monospace;font-weight:700;color:var(--green)}
+.cost-auto .ca-link{margin-left:auto;font-size:11px;color:var(--accent);cursor:pointer;font-weight:600}
+.result-banner{border-radius:14px;padding:20px;margin-bottom:16px;text-align:center}
+.result-banner .rb-label{font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.result-banner .rb-value{font-size:28px;font-weight:700;font-family:'DM Mono',monospace;letter-spacing:-.02em}
+.result-banner .rb-sub{font-size:12px;margin-top:6px;font-family:'DM Mono',monospace}
+.rb-green{background:var(--green-bg);border:1px solid var(--green-border)}.rb-green .rb-label,.rb-green .rb-value{color:var(--green)}.rb-green .rb-sub{color:var(--text4)}
+.rb-amber{background:var(--amber-bg);border:1px solid var(--amber-border)}.rb-amber .rb-label,.rb-amber .rb-value{color:var(--amber)}.rb-amber .rb-sub{color:var(--text4)}
+.rb-red{background:var(--red-bg);border:1px solid var(--red-border)}.rb-red .rb-label,.rb-red .rb-value{color:var(--red)}.rb-red .rb-sub{color:var(--text4)}
+.hint{font-size:13px;color:var(--text5);text-align:center;padding:20px 0}
+/* Agent commission toggle */
+.agent-row{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:12px;flex-wrap:wrap}
+.agent-row label{font-size:13px;color:var(--text2);font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px}
+.agent-toggle{position:relative;width:38px;height:22px;flex-shrink:0}
+.agent-toggle input{opacity:0;width:0;height:0}
+.agent-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:var(--border2);border-radius:22px;transition:.2s}
+.agent-slider:before{position:absolute;content:"";height:16px;width:16px;left:3px;bottom:3px;background:var(--bg);border-radius:50%;transition:.2s}
+.agent-toggle input:checked+.agent-slider{background:var(--amber)}
+.agent-toggle input:checked+.agent-slider:before{transform:translateX(16px)}
+.agent-detail{font-size:12px;color:var(--text4);margin-top:4px;width:100%}
+.agent-detail strong{color:var(--amber);font-weight:600}
+@media(max-width:400px){.container{padding:24px 16px 60px}.field{min-width:100px}.card{min-width:130px}.card .card-value{font-size:17px}.logistics-fields{flex-wrap:wrap}.market-tab{padding:10px 12px;font-size:12px}.result-banner .rb-value{font-size:22px}.nav-btn{font-size:12px;padding:9px 6px}}
 </style>
 </head>
 <body>
-<div class="container" id="app">
-
+<div class="container">
   <div class="header">
     <div class="header-left">
-      <div class="header-row">
-        <div class="logo">📦</div>
-        <h1>Import Calc</h1>
-      </div>
-      <p>Landed cost calculator for imports</p>
+      <div class="header-row"><div class="logo">📦</div><h1>Import Calc</h1></div>
+      <p>Sourcing · Costing · Pricing</p>
     </div>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀️</button>
   </div>
-
-  <!-- Source Currency -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-bar" style="background:var(--text)"></div>
-      <div class="section-title">Source Currency</div>
-    </div>
-    <div class="toggle" id="srcToggle"></div>
+  <div class="top-nav">
+    <button class="nav-btn active" onclick="showPage('import')">Import Cost</button>
+    <button class="nav-btn" onclick="showPage('pricing')">Pricing</button>
+    <button class="nav-btn" onclick="showPage('adbudget')">Ad Budget</button>
   </div>
 
-  <!-- Item Details -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-bar" style="background:var(--accent)"></div>
-      <div class="section-title">Item Details</div>
+  <!-- PAGE: IMPORT COST -->
+  <div class="page active" id="page-import">
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--text)"></div><div class="section-title">Source Currency</div></div>
+      <div class="toggle" id="srcToggle"></div>
     </div>
-    <div class="field-row">
-      <div class="field"><label id="costLabel">Unit Cost (¥)</label><div class="field-input"><span class="prefix" id="costPrefix">¥</span><input type="number" id="itemCost" value="3.2" step="any"></div></div>
-      <div class="field"><label>Weight</label><div class="field-input"><input type="number" id="weight" value="100" step="any"><span class="suffix">grams</span></div></div>
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--accent)"></div><div class="section-title">Item Details</div></div>
+      <div class="field-row">
+        <div class="field"><label id="costLabel">Unit Cost (¥)</label><div class="field-input"><span class="prefix" id="costPrefix">¥</span><input type="number" id="itemCost" value="3.2" step="any"></div></div>
+        <div class="field"><label>Weight</label><div class="field-input"><input type="number" id="weight" value="100" step="any"><span class="suffix">grams</span></div></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Shipping ($/kg)</label><div class="field-input"><span class="prefix">$</span><input type="number" id="shippingPerKg" value="6.3" step="any"><span class="suffix">/kg</span></div></div>
+        <div class="field"><label>Clearing (₦/kg)</label><div class="field-input"><span class="prefix">₦</span><input type="number" id="clearingPerKg" value="1000" step="any"><span class="suffix">/kg</span></div></div>
+      </div>
+      <div class="field-row"><div class="field half"><label>Quantity</label><div class="field-input"><input type="number" id="quantity" value="400" step="1"><span class="suffix">units</span></div></div></div>
     </div>
-    <div class="field-row">
-      <div class="field"><label>Shipping ($/kg)</label><div class="field-input"><span class="prefix">$</span><input type="number" id="shippingPerKg" value="6.3" step="any"><span class="suffix">/kg</span></div></div>
-      <div class="field"><label>Clearing (₦/kg)</label><div class="field-input"><span class="prefix">₦</span><input type="number" id="clearingPerKg" value="1000" step="any"><span class="suffix">/kg</span></div></div>
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--amber)"></div><div class="section-title">Exchange Rates</div></div>
+      <div class="rates-header"><span>Manual entry</span><button id="ratesToggle" onclick="toggleRatesEdit()">Edit rates</button></div>
+      <div id="ratesPills" class="rates-pills"></div>
+      <div id="ratesEdit" class="rates-edit" style="display:none"></div>
     </div>
-    <div class="field-row">
-      <div class="field half"><label>Quantity</label><div class="field-input"><input type="number" id="quantity" value="400" step="1"><span class="suffix">units</span></div></div>
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--green)"></div><div class="section-title">Logistics Fees</div></div>
+      <div id="logisticsList"></div>
+      <button class="add-btn" onclick="addLogisticsLine()">+ Add logistics line</button>
+    </div>
+    <div class="base-cost-note" id="baseCostNote"></div>
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--green)"></div><div class="section-title">Landed Cost</div></div>
+      <div id="marketTabs" class="market-tabs"></div>
+      <div id="marketPanel" class="market-panel"></div>
     </div>
   </div>
 
-  <!-- Exchange Rates -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-bar" style="background:var(--amber)"></div>
-      <div class="section-title">Exchange Rates</div>
+  <!-- PAGE: PRICING -->
+  <div class="page" id="page-pricing">
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--green)"></div><div class="section-title">Market</div></div>
+      <div class="market-toggle" id="pricingMarketToggle"></div>
     </div>
-    <div class="rates-header">
-      <span>Manual entry</span>
-      <button id="ratesToggle" onclick="toggleRatesEdit()">Edit rates</button>
+    <div class="cost-source" id="pCostSource"></div>
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--accent)"></div><div class="section-title">Order Details</div></div>
+      <div class="field-row"><div class="field"><label>Units per order</label><div class="field-input"><input type="number" id="pUnits" value="1" step="1" min="1"><span class="suffix">units</span></div></div></div>
     </div>
-    <div id="ratesPills" class="rates-pills"></div>
-    <div id="ratesEdit" class="rates-edit" style="display:none"></div>
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--amber)"></div><div class="section-title">Delivery & Ads</div></div>
+      <div class="field-row">
+        <div class="field"><label id="pDeliveryLabel">Avg Delivery Fee (₦)</label><div class="field-input"><span class="prefix" id="pDeliveryPrefix">₦</span><input type="number" id="pDeliveryFee" value="" step="any" placeholder="0"></div></div>
+      </div>
+      <div id="pAgentRow"></div>
+      <div class="field-row">
+        <div class="field"><label>Avg CPA from ads (₦)</label><div class="field-input"><span class="prefix">₦</span><input type="number" id="pCPA" value="" step="any" placeholder="0"></div></div>
+        <div class="field"><label>Delivery Success Rate</label><div class="field-input"><input type="number" id="pDeliveryRate" value="70" step="any" min="1" max="100"><span class="suffix">%</span></div></div>
+      </div>
+      <div id="pCostPerSuccess" style="font-size:12px;color:var(--text4);font-family:'DM Mono',monospace;margin-top:8px;padding-left:2px"></div>
+    </div>
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--accent)"></div><div class="section-title">Extras & Profit</div></div>
+      <div class="field-row">
+        <div class="field"><label>Misc / Bonus (₦)</label><div class="field-input"><span class="prefix">₦</span><input type="number" id="pMisc" value="" step="any" placeholder="0"></div></div>
+        <div class="field"><label>Desired Profit (₦)</label><div class="field-input"><span class="prefix">₦</span><input type="number" id="pProfit" value="" step="any" placeholder="0"></div></div>
+      </div>
+    </div>
+    <div id="pricingResult"></div>
   </div>
 
-  <!-- Logistics -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-bar" style="background:var(--green)"></div>
-      <div class="section-title">Logistics Fees</div>
+  <!-- PAGE: AD BUDGET -->
+  <div class="page" id="page-adbudget">
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--green)"></div><div class="section-title">Market</div></div>
+      <div class="market-toggle" id="adMarketToggle"></div>
     </div>
-    <div id="logisticsList"></div>
-    <button class="add-btn" onclick="addLogisticsLine()">+ Add logistics line</button>
-  </div>
-
-  <!-- Base Cost -->
-  <div class="base-cost-note" id="baseCostNote"></div>
-
-  <!-- Market Breakdown -->
-  <div class="section" id="marketSection">
-    <div class="section-head">
-      <div class="section-bar" style="background:var(--green)"></div>
-      <div class="section-title">Landed Cost</div>
+    <div class="cost-source" id="adCostSource"></div>
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--accent)"></div><div class="section-title">Order Setup</div></div>
+      <div class="field-row"><div class="field"><label>Units per order</label><div class="field-input"><input type="number" id="adUnits" value="1" step="1" min="1"><span class="suffix">units</span></div></div></div>
+      <div class="field-row" style="margin-top:12px">
+        <div class="field"><label id="adSellLabel">Selling Price (₦)</label><div class="field-input"><span class="prefix" id="adSellPrefix">₦</span><input type="number" id="adSellPrice" value="" step="any" placeholder="0"></div></div>
+      </div>
     </div>
-    <div id="marketTabs" class="market-tabs"></div>
-    <div id="marketPanel" class="market-panel"></div>
+    <div class="section">
+      <div class="section-head"><div class="section-bar" style="background:var(--amber)"></div><div class="section-title">Costs</div></div>
+      <div class="field-row">
+        <div class="field"><label id="adDelivLabel">Delivery Fee (₦)</label><div class="field-input"><span class="prefix" id="adDelivPrefix">₦</span><input type="number" id="adDelivFee" value="" step="any" placeholder="0"></div></div>
+        <div class="field"><label>Delivery Success Rate</label><div class="field-input"><input type="number" id="adDelivRate" value="70" step="any" min="1" max="100"><span class="suffix">%</span></div></div>
+      </div>
+      <div id="adAgentRow"></div>
+      <div class="field-row">
+        <div class="field"><label>Misc / Bonus (₦)</label><div class="field-input"><span class="prefix">₦</span><input type="number" id="adMisc" value="" step="any" placeholder="0"></div></div>
+        <div class="field"><label>Target Profit (₦)</label><div class="field-input"><span class="prefix">₦</span><input type="number" id="adTargetProfit" value="" step="any" placeholder="0"></div></div>
+      </div>
+    </div>
+    <div id="adBudgetResult"></div>
   </div>
-
 </div>
 
 <script>
-const CURRENCIES = {
-  USD: { label: "USD ($)", symbol: "$" },
-  CNY: { label: "Yuan (¥)", symbol: "¥" },
-  GBP: { label: "GBP (£)", symbol: "£" },
-  EUR: { label: "EUR (€)", symbol: "€" },
-};
-
-const state = {
-  src: "CNY", activeTab: "ng",
-  rates: { USD: 1518, CNY: 221.34, GBP: 1920, EUR: 1780, NGN_GHS: 116 },
-  ratesEditing: false, theme: "dark",
-  logistics: [
-    { id: 1, label: "Distribution (Nigeria)", market: "ng", totalCost: 0, units: 400 },
-    { id: 2, label: "Waybill Lagos → Accra", market: "gh", totalCost: 0, units: 400 },
+const CURRENCIES={USD:{label:"USD ($)",symbol:"$"},CNY:{label:"Yuan (¥)",symbol:"¥"},GBP:{label:"GBP (£)",symbol:"£"},EUR:{label:"EUR (€)",symbol:"€"}};
+const S={
+  src:"CNY",activeTab:"ng",
+  rates:{USD:1518,CNY:221.34,GBP:1920,EUR:1780,NGN_GHS:116},
+  ratesEditing:false,theme:"dark",currentPage:"import",
+  logistics:[
+    {id:1,label:"Distribution (Nigeria)",market:"ng",totalCost:0,units:400},
+    {id:2,label:"Waybill Lagos → Accra",market:"gh",totalCost:0,units:400},
   ],
-  nextLogId: 3,
+  nextLogId:3,ngUnitNaira:0,ghUnitNaira:0,ghUnitCedis:0,
+  pricingMarket:"ng",adMarket:"ng",
+  pCostMode:"auto",pCustomCost:0,adCostMode:"auto",adCustomCost:0,
+  // Agent commission
+  pAgentOn:false,pAgentRate:4.5,
+  adAgentOn:false,adAgentRate:4.5,
 };
+const $=id=>document.getElementById(id);
+const val=id=>parseFloat($(id)?.value)||0;
+const fmt=n=>isNaN(n)?"—":n.toLocaleString("en-NG",{minimumFractionDigits:2,maximumFractionDigits:2});
 
-const $ = id => document.getElementById(id);
-const val = id => parseFloat($(id)?.value) || 0;
-const fmt = n => isNaN(n) ? "—" : n.toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+/* Theme */
+function toggleTheme(){S.theme=S.theme==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",S.theme);$("themeBtn").textContent=S.theme==="dark"?"☀️":"🌙";try{localStorage.setItem("ic_theme",S.theme)}catch(e){}}
+function initTheme(){try{const s=localStorage.getItem("ic_theme");if(s)S.theme=s}catch(e){}document.documentElement.setAttribute("data-theme",S.theme);$("themeBtn").textContent=S.theme==="dark"?"☀️":"🌙"}
 
-function toggleTheme() {
-  state.theme = state.theme === "dark" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", state.theme);
-  $("themeBtn").textContent = state.theme === "dark" ? "☀️" : "🌙";
-  try { localStorage.setItem("ic_theme", state.theme); } catch(e) {}
-}
-function initTheme() {
-  try { const s = localStorage.getItem("ic_theme"); if (s) state.theme = s; } catch(e) {}
-  document.documentElement.setAttribute("data-theme", state.theme);
-  $("themeBtn").textContent = state.theme === "dark" ? "☀️" : "🌙";
-}
+/* Nav */
+function showPage(p){S.currentPage=p;document.querySelectorAll(".page").forEach(el=>el.classList.remove("active"));$("page-"+p).classList.add("active");document.querySelectorAll(".nav-btn").forEach((b,i)=>b.classList.toggle("active",["import","pricing","adbudget"][i]===p));if(p==="pricing")calcPricing();if(p==="adbudget")calcAdBudget()}
 
-function buildToggle(el, opts, active, cb) {
-  el.innerHTML = "";
-  opts.forEach(o => {
-    const b = document.createElement("button");
-    b.className = "toggle-btn" + (o.value === active ? " active" : "");
-    b.textContent = o.label;
-    b.onclick = () => cb(o.value);
+/* Generic toggle */
+function buildToggle(el,opts,active,cb){el.innerHTML="";opts.forEach(o=>{const b=document.createElement("button");b.className="toggle-btn"+(o.value===active?" active":"");b.textContent=o.label;b.onclick=()=>cb(o.value);el.appendChild(b)})}
+
+/* Coloured market toggle */
+function buildMarketToggle(el,active,cb){
+  el.innerHTML="";
+  [{value:"ng",label:"🇳🇬 Nigeria"},{value:"gh",label:"🇬🇭 Ghana"}].forEach(o=>{
+    const b=document.createElement("button");
+    b.className="mt-btn"+(o.value===active?(o.value==="ng"?" active-ng":" active-gh"):"");
+    b.textContent=o.label;
+    b.onclick=()=>cb(o.value);
     el.appendChild(b);
   });
 }
 
-function renderRates() {
-  const pills = $("ratesPills"), edit = $("ratesEdit");
-  if (state.ratesEditing) {
-    pills.style.display = "none"; edit.style.display = "flex"; edit.innerHTML = "";
-    [
-      ...Object.keys(CURRENCIES).map(k => ({ key: k, label: `${k} → NGN`, prefix: "₦" })),
-      { key: "NGN_GHS", label: "NGN → GHS", prefix: "₦", suffix: "per GH₵" },
-    ].forEach(r => {
-      const d = document.createElement("div"); d.className = "field";
-      d.innerHTML = `<label>${r.label}</label><div class="field-input"><span class="prefix">${r.prefix}</span><input type="number" value="${state.rates[r.key]}" step="any">${r.suffix ? `<span class="suffix">${r.suffix}</span>` : ""}</div>`;
-      d.querySelector("input").addEventListener("input", e => { state.rates[r.key] = parseFloat(e.target.value) || 0; calculate(); });
-      edit.appendChild(d);
-    });
-  } else {
-    pills.style.display = "flex"; edit.style.display = "none";
-    pills.innerHTML = Object.keys(CURRENCIES).map(k =>
-      `<div class="rates-pill"><span>${k}</span>₦${fmt(state.rates[k])}</div>`
-    ).join("") + `<div class="rates-pill"><span>GHS</span>₦${fmt(state.rates.NGN_GHS)}</div>`;
+/* Rates */
+function renderRates(){
+  const p=$("ratesPills"),e=$("ratesEdit");
+  if(S.ratesEditing){p.style.display="none";e.style.display="flex";e.innerHTML="";
+    [...Object.keys(CURRENCIES).map(k=>({key:k,label:`${k} → NGN`,prefix:"₦"})),{key:"NGN_GHS",label:"NGN → GHS",prefix:"₦",suffix:"per GH₵"}].forEach(r=>{
+      const d=document.createElement("div");d.className="field";
+      d.innerHTML=`<label>${r.label}</label><div class="field-input"><span class="prefix">${r.prefix}</span><input type="number" value="${S.rates[r.key]}" step="any">${r.suffix?`<span class="suffix">${r.suffix}</span>`:""}</div>`;
+      d.querySelector("input").addEventListener("input",ev=>{S.rates[r.key]=parseFloat(ev.target.value)||0;calcImport()});e.appendChild(d)});
+  }else{p.style.display="flex";e.style.display="none";
+    p.innerHTML=Object.keys(CURRENCIES).map(k=>`<div class="rates-pill"><span>${k}</span>₦${fmt(S.rates[k])}</div>`).join("")+`<div class="rates-pill"><span>GHS</span>₦${fmt(S.rates.NGN_GHS)}</div>`}
+}
+function toggleRatesEdit(){S.ratesEditing=!S.ratesEditing;$("ratesToggle").textContent=S.ratesEditing?"Done":"Edit rates";renderRates()}
+
+/* Logistics */
+function renderLogistics(){
+  const list=$("logisticsList");list.innerHTML="";
+  S.logistics.forEach((item,idx)=>{
+    const tc=item.market==="ng"?"tag-ng":item.market==="gh"?"tag-gh":"tag-custom";
+    const tt=item.market==="ng"?"Nigeria":item.market==="gh"?"Ghana":"Both";
+    const pu=item.units>0?item.totalCost/item.units:0;const isDef=item.id<=2;
+    const d=document.createElement("div");d.className="logistics-item";
+    d.innerHTML=`<div class="logistics-top"><div style="display:flex;align-items:center;gap:8px">${isDef?`<span class="logistics-label">${item.label}</span>`:`<input class="editable-label" value="${item.label}" data-idx="${idx}" data-f="label">`}${isDef?`<span class="logistics-tag ${tc}">${tt}</span>`:`<select class="logistics-market-select" data-idx="${idx}" data-f="market"><option value="ng"${item.market==="ng"?" selected":""}>🇳🇬 Nigeria</option><option value="gh"${item.market==="gh"?" selected":""}>🇬🇭 Ghana</option><option value="both"${item.market==="both"?" selected":""}>Both</option></select>`}</div>${!isDef?`<button class="logistics-remove" data-idx="${idx}">×</button>`:""}</div><div class="logistics-fields"><div class="field" style="min-width:100px"><label>Total Cost (₦)</label><div class="field-input"><span class="prefix">₦</span><input type="number" value="${item.totalCost||""}" step="any" placeholder="0" data-idx="${idx}" data-f="totalCost"></div></div><div class="field" style="min-width:80px;max-width:120px"><label>Units</label><div class="field-input"><input type="number" value="${item.units}" step="1" data-idx="${idx}" data-f="units"></div></div></div><div class="logistics-per-unit">Per unit: <strong>₦${fmt(pu)}</strong></div>`;
+    list.appendChild(d)});
+  list.querySelectorAll("input[data-f='totalCost'],input[data-f='units']").forEach(inp=>{inp.addEventListener("input",e=>{const i=parseInt(e.target.dataset.idx);S.logistics[i][e.target.dataset.f]=parseFloat(e.target.value)||0;const pu=S.logistics[i].units>0?S.logistics[i].totalCost/S.logistics[i].units:0;e.target.closest(".logistics-item").querySelector(".logistics-per-unit strong").textContent="₦"+fmt(pu);calcImport()})});
+  list.querySelectorAll("input[data-f='label']").forEach(inp=>{inp.addEventListener("input",e=>{S.logistics[parseInt(e.target.dataset.idx)].label=e.target.value})});
+  list.querySelectorAll("select[data-f='market']").forEach(sel=>{sel.addEventListener("change",e=>{S.logistics[parseInt(e.target.dataset.idx)].market=e.target.value;calcImport()})});
+  list.querySelectorAll(".logistics-remove").forEach(btn=>{btn.addEventListener("click",e=>{S.logistics.splice(parseInt(e.currentTarget.dataset.idx),1);renderLogistics();calcImport()})});
+}
+function addLogisticsLine(){S.logistics.push({id:S.nextLogId++,label:"New logistics fee",market:"ng",totalCost:0,units:val("quantity")||400});renderLogistics();calcImport()}
+function hasGhFees(){return S.logistics.some(l=>(l.market==="gh"||l.market==="both")&&l.totalCost>0)}
+
+/* Import calc */
+function calcImport(){
+  const ic=val("itemCost"),w=val("weight"),spk=val("shippingPerKg"),cpk=val("clearingPerKg"),qty=val("quantity");
+  const srcR=S.rates[S.src]||0,usdR=S.rates.USD||0,ghsR=S.rates.NGN_GHS||1;
+  const itemN=ic*srcR,shipN=spk*usdR*(w/1000),clearN=cpk*(w/1000),baseN=itemN+shipN+clearN;
+  let ngL=0,ghL=0;const ngLL=[],ghLL=[];
+  S.logistics.forEach(item=>{const pu=item.units>0?item.totalCost/item.units:0;if(pu<=0)return;if(item.market==="ng"||item.market==="both"){ngL+=pu;ngLL.push({label:item.label,naira:pu})}if(item.market==="gh"||item.market==="both"){ghL+=pu;ghLL.push({label:item.label,naira:pu})}});
+  S.ngUnitNaira=baseN+ngL;S.ghUnitNaira=baseN+ghL;S.ghUnitCedis=S.ghUnitNaira/ghsR;
+  $("baseCostNote").innerHTML=`Base cost (before logistics): <strong>₦${fmt(baseN)}</strong> per unit`;
+  const showGh=hasGhFees();if(!showGh&&S.activeTab==="gh")S.activeTab="ng";
+  $("marketTabs").innerHTML=`<div class="market-tab ${S.activeTab==="ng"?"active-ng":""}" onclick="switchTab('ng')"><span class="tab-flag">🇳🇬</span>Nigeria</div>${showGh?`<div class="market-tab ${S.activeTab==="gh"?"active-gh":""}" onclick="switchTab('gh')"><span class="tab-flag">🇬🇭</span>Ghana</div>`:""}`;
+  const panel=$("marketPanel");panel.style.borderColor=S.activeTab==="ng"?"var(--green-border)":"var(--amber-border)";
+  if(S.activeTab==="ng"){
+    const rows=[{label:"Item cost",v:itemN},{label:"Shipping",v:shipN},{label:"Port clearing",v:clearN},...ngLL.map(l=>({label:l.label,v:l.naira}))];
+    panel.innerHTML=`<div class="breakdown">${rows.map(r=>`<div class="breakdown-row"><span class="lbl">${r.label}</span><span class="val">₦${fmt(r.v)}</span></div>`).join("")}<div class="breakdown-row total"><span class="lbl">Landed cost / unit</span><span class="val">₦${fmt(S.ngUnitNaira)}</span></div></div><div class="cards"><div class="card card-green"><div class="card-label">Unit Cost</div><div class="card-value">₦${fmt(S.ngUnitNaira)}</div></div><div class="card card-green"><div class="card-label">Total · ${qty} units</div><div class="card-value">₦${fmt(S.ngUnitNaira*qty)}</div></div></div>`;
+  }else{
+    const rows=[{label:"Item cost",v:itemN/ghsR},{label:"Shipping",v:shipN/ghsR},{label:"Port clearing",v:clearN/ghsR},...ghLL.map(l=>({label:l.label,v:l.naira/ghsR}))];
+    panel.innerHTML=`<div class="breakdown">${rows.map(r=>`<div class="breakdown-row"><span class="lbl">${r.label}</span><span class="val">GH₵${fmt(r.v)}</span></div>`).join("")}<div class="breakdown-row total"><span class="lbl">Landed cost / unit</span><span class="val">GH₵${fmt(S.ghUnitCedis)}</span></div></div><div class="cards"><div class="card card-amber"><div class="card-label">Unit Cost</div><div class="card-value">GH₵${fmt(S.ghUnitCedis)}</div><div class="card-sub">₦${fmt(S.ghUnitNaira)}</div></div><div class="card card-amber"><div class="card-label">Total · ${qty} units</div><div class="card-value">GH₵${fmt(S.ghUnitCedis*qty)}</div><div class="card-sub">₦${fmt(S.ghUnitNaira*qty)}</div></div></div>`;
   }
+  if(S.currentPage==="pricing")calcPricing();
+  if(S.currentPage==="adbudget")calcAdBudget();
 }
-function toggleRatesEdit() {
-  state.ratesEditing = !state.ratesEditing;
-  $("ratesToggle").textContent = state.ratesEditing ? "Done" : "Edit rates";
-  renderRates();
+function switchTab(t){S.activeTab=t;calcImport()}
+
+/* Cost source */
+function renderCostSource(cid,mode,customVal,market,onMode,onCustom){
+  const el=$(cid);const isGh=market==="gh";const ghsR=S.rates.NGN_GHS||1;
+  const autoDisplay=isGh?`GH₵${fmt(S.ghUnitCedis)}`:`₦${fmt(S.ngUnitNaira)}`;
+  let h=`<div class="cost-source-row"><span style="font-size:12px;color:var(--text4);font-weight:500">Cost price:</span><div class="cost-source-toggle"><button class="${mode==="auto"?"active":""}" data-m="auto">From import calc</button><button class="${mode==="custom"?"active":""}" data-m="custom">Custom</button></div></div>`;
+  if(mode==="auto"){h+=`<div class="cost-auto"><span class="ca-label">Unit cost:</span><span class="ca-val">${autoDisplay}</span><span class="ca-link" onclick="showPage('import')">Edit →</span></div>`}
+  else{h+=`<div class="field-row"><div class="field"><label>Custom Cost Price (₦)</label><div class="field-input"><span class="prefix">₦</span><input type="number" id="${cid}_input" value="${customVal||""}" step="any" placeholder="Enter cost in Naira"></div></div></div>`}
+  el.innerHTML=h;
+  el.querySelectorAll(".cost-source-toggle button").forEach(btn=>{btn.addEventListener("click",()=>onMode(btn.dataset.m))});
+  if(mode==="custom"){const inp=$(`${cid}_input`);if(inp)inp.addEventListener("input",e=>onCustom(parseFloat(e.target.value)||0))}
 }
+function getEffCost(mode,custom,market){if(mode==="custom")return custom;return market==="gh"?S.ghUnitNaira:S.ngUnitNaira}
 
-function renderLogistics() {
-  const list = $("logisticsList"); list.innerHTML = "";
-  state.logistics.forEach((item, idx) => {
-    const tagCls = item.market === "ng" ? "tag-ng" : item.market === "gh" ? "tag-gh" : "tag-custom";
-    const tagTxt = item.market === "ng" ? "Nigeria" : item.market === "gh" ? "Ghana" : "Both";
-    const pu = item.units > 0 ? item.totalCost / item.units : 0;
-    const isDefault = item.id <= 2;
-
-    const div = document.createElement("div"); div.className = "logistics-item";
-    div.innerHTML = `
-      <div class="logistics-top">
-        <div style="display:flex;align-items:center;gap:8px">
-          ${isDefault
-            ? `<span class="logistics-label">${item.label}</span>`
-            : `<input class="editable-label" value="${item.label}" data-idx="${idx}" data-f="label">`}
-          ${isDefault
-            ? `<span class="logistics-tag ${tagCls}">${tagTxt}</span>`
-            : `<select class="logistics-market-select" data-idx="${idx}" data-f="market">
-                <option value="ng" ${item.market==="ng"?"selected":""}>🇳🇬 Nigeria</option>
-                <option value="gh" ${item.market==="gh"?"selected":""}>🇬🇭 Ghana</option>
-                <option value="both" ${item.market==="both"?"selected":""}>Both</option>
-              </select>`}
-        </div>
-        ${!isDefault ? `<button class="logistics-remove" data-idx="${idx}">×</button>` : ""}
-      </div>
-      <div class="logistics-fields">
-        <div class="field" style="min-width:100px"><label>Total Cost (₦)</label><div class="field-input"><span class="prefix">₦</span><input type="number" value="${item.totalCost || ''}" step="any" placeholder="0" data-idx="${idx}" data-f="totalCost"></div></div>
-        <div class="field" style="min-width:80px;max-width:120px"><label>Units</label><div class="field-input"><input type="number" value="${item.units}" step="1" data-idx="${idx}" data-f="units"></div></div>
-      </div>
-      <div class="logistics-per-unit">Per unit: <strong>₦${fmt(pu)}</strong></div>`;
-    list.appendChild(div);
-  });
-
-  list.querySelectorAll("input[data-f='totalCost'], input[data-f='units']").forEach(inp => {
-    inp.addEventListener("input", e => {
-      const i = parseInt(e.target.dataset.idx);
-      state.logistics[i][e.target.dataset.f] = parseFloat(e.target.value) || 0;
-      const pu = state.logistics[i].units > 0 ? state.logistics[i].totalCost / state.logistics[i].units : 0;
-      e.target.closest(".logistics-item").querySelector(".logistics-per-unit strong").textContent = "₦" + fmt(pu);
-      calculate();
-    });
-  });
-  list.querySelectorAll("input[data-f='label']").forEach(inp => {
-    inp.addEventListener("input", e => { state.logistics[parseInt(e.target.dataset.idx)].label = e.target.value; });
-  });
-  list.querySelectorAll("select[data-f='market']").forEach(sel => {
-    sel.addEventListener("change", e => {
-      state.logistics[parseInt(e.target.dataset.idx)].market = e.target.value;
-      calculate();
-    });
-  });
-  list.querySelectorAll(".logistics-remove").forEach(btn => {
-    btn.addEventListener("click", e => {
-      state.logistics.splice(parseInt(e.currentTarget.dataset.idx), 1);
-      renderLogistics(); calculate();
-    });
-  });
+/* Agent commission UI */
+function renderAgentRow(containerId,isOn,rate,onToggle,onRateChange){
+  const el=$(containerId);
+  el.innerHTML=`<div class="agent-row">
+    <label class="agent-toggle"><input type="checkbox" ${isOn?"checked":""}><span class="agent-slider"></span></label>
+    <label style="font-size:13px;color:var(--text2);font-weight:500">Delivery agent commission</label>
+    ${isOn?`<div class="field-input" style="height:36px;max-width:100px;margin-left:auto"><input type="number" value="${rate}" step="any" style="font-size:13px" id="${containerId}_rate"><span class="suffix">%</span></div>`:""}
+  </div>`;
+  el.querySelector("input[type=checkbox]").addEventListener("change",e=>onToggle(e.target.checked));
+  if(isOn){const ri=$(`${containerId}_rate`);if(ri)ri.addEventListener("input",e=>onRateChange(parseFloat(e.target.value)||0))}
 }
 
-function addLogisticsLine() {
-  state.logistics.push({ id: state.nextLogId++, label: "New logistics fee", market: "ng", totalCost: 0, units: val("quantity") || 400 });
-  renderLogistics(); calculate();
-}
+/* Pricing - with agent commission math
+   Formula: SellingPrice = (Costs + Profit) / (1 - agentRate/100)
+   where agent is applied to (SellingPrice - deliveryFee)
+   
+   So: SP = Costs + Profit + agentRate * (SP - delivFee)
+       SP - agentRate*SP = Costs + Profit - agentRate*delivFee
+       SP * (1 - agentRate) = Costs + Profit - agentRate*delivFee
+       SP = (Costs + Profit - agentRate*delivFee) / (1 - agentRate)
+*/
+function calcPricing(){
+  const m=S.pricingMarket,isGh=m==="gh",ghsR=S.rates.NGN_GHS||1;
 
-function hasGhanaFees() {
-  return state.logistics.some(l => (l.market === "gh" || l.market === "both") && l.totalCost > 0);
-}
+  buildMarketToggle($("pricingMarketToggle"),m,v=>{S.pricingMarket=v;calcPricing()});
+  renderCostSource("pCostSource",S.pCostMode,S.pCustomCost,m,mode=>{S.pCostMode=mode;calcPricing()},v=>{S.pCustomCost=v;calcPricing()});
 
-function calculate() {
-  const itemCost = val("itemCost"), weight = val("weight");
-  const shippingPerKg = val("shippingPerKg"), clearingPerKg = val("clearingPerKg");
-  const quantity = val("quantity");
-  const srcRate = state.rates[state.src] || 0, usdRate = state.rates.USD || 0;
-  const ghsRate = state.rates.NGN_GHS || 1;
+  // Only show agent for Ghana
+  if(isGh){
+    renderAgentRow("pAgentRow",S.pAgentOn,S.pAgentRate,on=>{S.pAgentOn=on;calcPricing()},r=>{S.pAgentRate=r;calcPricing()});
+  }else{$("pAgentRow").innerHTML=""}
 
-  // Base costs (shared)
-  const itemN = itemCost * srcRate;
-  const shipN = shippingPerKg * usdRate * (weight / 1000);
-  const clearN = clearingPerKg * (weight / 1000);
-  const baseN = itemN + shipN + clearN;
+  const costNaira=getEffCost(S.pCostMode,S.pCustomCost,m);
+  const sym=isGh?"GH₵":"₦";
+  $("pDeliveryLabel").textContent=isGh?"Highest Delivery Fee (GH₵)":"Avg Delivery Fee (₦)";
+  $("pDeliveryPrefix").textContent=isGh?"GH₵":"₦";
 
-  // Per-market logistics
-  let ngLogN = 0, ghLogN = 0;
-  const ngLogLines = [], ghLogLines = [];
+  const units=Math.max(1,val("pUnits"));
+  const delivFee=val("pDeliveryFee");
+  const cpa=val("pCPA");
+  const delivRate=Math.max(1,val("pDeliveryRate"))/100;
+  const misc=val("pMisc");
+  const profit=val("pProfit");
+  const costPerSuccess=cpa/delivRate;
+  $("pCostPerSuccess").textContent=cpa>0?`Cost per successful order: ₦${fmt(costPerSuccess)}`:"";
 
-  state.logistics.forEach(item => {
-    const pu = item.units > 0 ? item.totalCost / item.units : 0;
-    if (pu <= 0) return;
-    if (item.market === "ng" || item.market === "both") {
-      ngLogN += pu;
-      ngLogLines.push({ label: item.label, naira: pu });
-    }
-    if (item.market === "gh" || item.market === "both") {
-      ghLogN += pu;
-      ghLogLines.push({ label: item.label, naira: pu });
-    }
-  });
+  const productCostNaira=costNaira*units;
+  const delivNaira=isGh?delivFee*ghsR:delivFee;
+  const baseCostsNaira=productCostNaira+delivNaira+costPerSuccess+misc;
 
-  const ngUnitN = baseN + ngLogN;
-  const ghUnitN = baseN + ghLogN;
-  const ghUnitC = ghUnitN / ghsRate;
+  // Agent commission (Ghana only)
+  const agentRate=(isGh&&S.pAgentOn)?S.pAgentRate/100:0;
+  // SP = (baseCosts + profit - agentRate * delivNaira) / (1 - agentRate)
+  const denom=1-agentRate;
+  const sellingPriceNaira=denom>0?(baseCostsNaira+profit-agentRate*delivNaira)/denom:0;
+  const agentAmountNaira=agentRate*(sellingPriceNaira-delivNaira);
+  const sellingPriceDisplay=isGh?sellingPriceNaira/ghsR:sellingPriceNaira;
+  const profitMargin=sellingPriceNaira>0?(profit/sellingPriceNaira)*100:0;
 
-  // Base cost note
-  $("baseCostNote").innerHTML = `Base cost (before logistics): <strong>₦${fmt(baseN)}</strong> per unit`;
+  const hasInputs=delivFee>0||cpa>0||profit>0||costNaira>0;
+  if(!hasInputs){$("pricingResult").innerHTML=`<p class="hint">Fill in your costs and desired profit to see your selling price</p>`;return}
 
-  // Show Ghana?
-  const showGh = hasGhanaFees();
-  if (!showGh && state.activeTab === "gh") state.activeTab = "ng";
+  const rows=[
+    {label:`Product cost (${units} unit${units>1?"s":""})`,v:isGh?productCostNaira/ghsR:productCostNaira,vN:productCostNaira},
+    {label:"Delivery fee",v:isGh?delivFee:delivFee,vN:delivNaira},
+    {label:`Ad cost / order (CPA ₦${fmt(cpa)} ÷ ${(delivRate*100).toFixed(0)}%)`,v:isGh?costPerSuccess/ghsR:costPerSuccess,vN:costPerSuccess},
+    {label:"Misc / Bonus",v:isGh?misc/ghsR:misc,vN:misc},
+  ].filter(r=>r.vN>0);
 
-  // Tabs
-  const tabs = $("marketTabs");
-  tabs.innerHTML = `
-    <div class="market-tab ${state.activeTab === 'ng' ? 'active-ng' : ''}" onclick="switchTab('ng')">
-      <span class="tab-flag">🇳🇬</span>Nigeria
+  if(agentAmountNaira>0){
+    rows.push({label:`Agent commission (${S.pAgentRate}%)`,v:isGh?agentAmountNaira/ghsR:agentAmountNaira,vN:agentAmountNaira});
+  }
+  rows.push({label:"Desired profit",v:isGh?profit/ghsR:profit,vN:profit});
+
+  const totalCostsNaira=sellingPriceNaira-profit;
+
+  $("pricingResult").innerHTML=`
+    <div class="result-banner ${isGh?"rb-amber":"rb-green"}">
+      <div class="rb-label">Selling Price</div>
+      <div class="rb-value">${sym}${fmt(sellingPriceDisplay)}</div>
+      ${isGh?`<div class="rb-sub">₦${fmt(sellingPriceNaira)}</div>`:""}
     </div>
-    ${showGh ? `<div class="market-tab ${state.activeTab === 'gh' ? 'active-gh' : ''}" onclick="switchTab('gh')">
-      <span class="tab-flag">🇬🇭</span>Ghana
-    </div>` : ""}`;
-
-  // Panel border color
-  const panel = $("marketPanel");
-  if (state.activeTab === "ng") {
-    panel.style.borderColor = "var(--green-border)";
-    tabs.querySelector(".market-tab:first-child").style.borderBottomColor = "transparent";
-  } else {
-    panel.style.borderColor = "var(--amber-border)";
-    if (tabs.querySelector(".market-tab:last-child")) tabs.querySelector(".market-tab:last-child").style.borderBottomColor = "transparent";
-  }
-
-  // Render active tab
-  if (state.activeTab === "ng") {
-    const rows = [
-      { label: "Item cost", val: itemN },
-      { label: "Shipping", val: shipN },
-      { label: "Port clearing", val: clearN },
-      ...ngLogLines.map(l => ({ label: l.label, val: l.naira })),
-    ];
-    panel.innerHTML = `
-      <div class="breakdown">
-        ${rows.map(r => `<div class="breakdown-row"><span class="lbl">${r.label}</span><span class="val">₦${fmt(r.val)}</span></div>`).join("")}
-        <div class="breakdown-row total"><span class="lbl">Landed cost / unit</span><span class="val">₦${fmt(ngUnitN)}</span></div>
-      </div>
-      <div class="cards">
-        <div class="card card-green"><div class="card-label">Unit Cost</div><div class="card-value">₦${fmt(ngUnitN)}</div></div>
-        <div class="card card-green"><div class="card-label">Total · ${quantity} units</div><div class="card-value">₦${fmt(ngUnitN * quantity)}</div></div>
-      </div>`;
-  } else {
-    const rows = [
-      { label: "Item cost", val: itemN / ghsRate },
-      { label: "Shipping", val: shipN / ghsRate },
-      { label: "Port clearing", val: clearN / ghsRate },
-      ...ghLogLines.map(l => ({ label: l.label, val: l.naira / ghsRate })),
-    ];
-    panel.innerHTML = `
-      <div class="breakdown">
-        ${rows.map(r => `<div class="breakdown-row"><span class="lbl">${r.label}</span><span class="val">GH₵${fmt(r.val)}</span></div>`).join("")}
-        <div class="breakdown-row total"><span class="lbl">Landed cost / unit</span><span class="val">GH₵${fmt(ghUnitC)}</span></div>
-      </div>
-      <div class="cards">
-        <div class="card card-amber"><div class="card-label">Unit Cost</div><div class="card-value">GH₵${fmt(ghUnitC)}</div><div class="card-sub">₦${fmt(ghUnitN)}</div></div>
-        <div class="card card-amber"><div class="card-label">Total · ${quantity} units</div><div class="card-value">GH₵${fmt(ghUnitC * quantity)}</div><div class="card-sub">₦${fmt(ghUnitN * quantity)}</div></div>
-      </div>`;
-  }
+    <div class="breakdown" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin-bottom:16px">
+      ${rows.filter(r=>r.vN>0).map(r=>`<div class="breakdown-row"><span class="lbl">${r.label}</span><span class="val">${sym}${fmt(r.v)}</span></div>`).join("")}
+      <div class="breakdown-row total"><span class="lbl">Total</span><span class="val">${sym}${fmt(sellingPriceDisplay)}</span></div>
+    </div>
+    <div class="cards">
+      <div class="card card-green"><div class="card-label">Profit / order</div><div class="card-value">₦${fmt(profit)}</div><div class="card-sub">${fmt(profitMargin)}% margin</div></div>
+      <div class="card card-indigo"><div class="card-label">Markup</div><div class="card-value">${profit>0&&totalCostsNaira>0?fmt((profit/totalCostsNaira)*100):"0.00"}%</div><div class="card-sub">on total costs</div></div>
+    </div>`;
 }
 
-function switchTab(tab) {
-  state.activeTab = tab;
-  calculate();
+/* Ad Budget - reverse calc with agent commission
+   Revenue = SP (given)
+   Agent = agentRate * (SP - delivFee)
+   Available for ads = SP - productCost - delivFee - agent - misc - profit
+   MaxCPA = available * delivRate
+*/
+function calcAdBudget(){
+  const m=S.adMarket,isGh=m==="gh",ghsR=S.rates.NGN_GHS||1;
+
+  buildMarketToggle($("adMarketToggle"),m,v=>{S.adMarket=v;calcAdBudget()});
+  renderCostSource("adCostSource",S.adCostMode,S.adCustomCost,m,mode=>{S.adCostMode=mode;calcAdBudget()},v=>{S.adCustomCost=v;calcAdBudget()});
+
+  if(isGh){
+    renderAgentRow("adAgentRow",S.adAgentOn,S.adAgentRate,on=>{S.adAgentOn=on;calcAdBudget()},r=>{S.adAgentRate=r;calcAdBudget()});
+  }else{$("adAgentRow").innerHTML=""}
+
+  const costNaira=getEffCost(S.adCostMode,S.adCustomCost,m);
+  const sym=isGh?"GH₵":"₦";
+  $("adSellLabel").textContent=isGh?"Selling Price (GH₵)":"Selling Price (₦)";
+  $("adSellPrefix").textContent=isGh?"GH₵":"₦";
+  $("adDelivLabel").textContent=isGh?"Delivery Fee (GH₵)":"Delivery Fee (₦)";
+  $("adDelivPrefix").textContent=isGh?"GH₵":"₦";
+
+  const units=Math.max(1,val("adUnits"));
+  const sellLocal=val("adSellPrice");
+  const delivLocal=val("adDelivFee");
+  const delivRate=Math.max(1,val("adDelivRate"))/100;
+  const misc=val("adMisc");
+  const targetProfit=val("adTargetProfit");
+
+  const sellNaira=isGh?sellLocal*ghsR:sellLocal;
+  const delivNaira=isGh?delivLocal*ghsR:delivLocal;
+  const productCostNaira=costNaira*units;
+
+  const agentRate=(isGh&&S.adAgentOn)?S.adAgentRate/100:0;
+  const agentNaira=agentRate*(sellNaira-delivNaira);
+
+  const available=sellNaira-productCostNaira-delivNaira-agentNaira-misc-targetProfit;
+  const maxCPA=available*delivRate;
+
+  if(!sellLocal){$("adBudgetResult").innerHTML=`<p class="hint">Enter a selling price to see your maximum ad spend per order</p>`;return}
+
+  const ok=maxCPA>0;
+  let breakdownRows=`
+    <div class="breakdown-row"><span class="lbl">Revenue</span><span class="val">₦${fmt(sellNaira)}</span></div>
+    <div class="breakdown-row"><span class="lbl">Product cost (${units} unit${units>1?"s":""})</span><span class="val">-₦${fmt(productCostNaira)}</span></div>
+    <div class="breakdown-row"><span class="lbl">Delivery</span><span class="val">-₦${fmt(delivNaira)}</span></div>`;
+  if(agentNaira>0)breakdownRows+=`<div class="breakdown-row"><span class="lbl">Agent commission (${S.adAgentRate}%)</span><span class="val">-₦${fmt(agentNaira)}</span></div>`;
+  if(misc>0)breakdownRows+=`<div class="breakdown-row"><span class="lbl">Misc / Bonus</span><span class="val">-₦${fmt(misc)}</span></div>`;
+  if(targetProfit>0)breakdownRows+=`<div class="breakdown-row"><span class="lbl">Target profit</span><span class="val">-₦${fmt(targetProfit)}</span></div>`;
+
+  $("adBudgetResult").innerHTML=`
+    <div class="result-banner ${ok?"rb-green":"rb-red"}">
+      <div class="rb-label">Max CPA (Cost Per Acquisition)</div>
+      <div class="rb-value">₦${fmt(Math.max(0,maxCPA))}</div>
+      <div class="rb-sub">${ok?`Stay under this to hit ₦${fmt(targetProfit)} profit`:"Not profitable at this selling price"}</div>
+    </div>
+    <div class="breakdown" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin-bottom:16px">
+      ${breakdownRows}
+      <div class="breakdown-row total"><span class="lbl">Available for ads</span><span class="val">₦${fmt(Math.max(0,available))}</span></div>
+    </div>
+    <div class="cards">
+      <div class="card ${ok?"card-green":"card-red"}"><div class="card-label">Max CPA</div><div class="card-value">₦${fmt(Math.max(0,maxCPA))}</div><div class="card-sub">at ${(delivRate*100).toFixed(0)}% delivery rate</div></div>
+      <div class="card ${ok?"card-green":"card-red"}"><div class="card-label">Cost per successful order</div><div class="card-value">₦${fmt(delivRate>0?Math.max(0,maxCPA)/delivRate:0)}</div><div class="card-sub">max ad spend per delivered order</div></div>
+    </div>`;
 }
 
-function update() {
-  const cur = CURRENCIES[state.src];
-  $("costLabel").textContent = `Unit Cost (${cur.symbol})`;
-  $("costPrefix").textContent = cur.symbol;
-  buildToggle($("srcToggle"), Object.entries(CURRENCIES).map(([k,v]) => ({value:k,label:v.label})), state.src, v => { state.src = v; update(); });
-  renderRates(); renderLogistics(); calculate();
+/* Init */
+function updateImportPage(){
+  const cur=CURRENCIES[S.src];$("costLabel").textContent=`Unit Cost (${cur.symbol})`;$("costPrefix").textContent=cur.symbol;
+  buildToggle($("srcToggle"),Object.entries(CURRENCIES).map(([k,v])=>({value:k,label:v.label})),S.src,v=>{S.src=v;updateImportPage()});
+  renderRates();renderLogistics();calcImport();
 }
 
-document.querySelectorAll("#app input[type=number]").forEach(inp => {
-  if (!inp.dataset.idx && !inp.dataset.rate) inp.addEventListener("input", calculate);
-});
+["pUnits","pDeliveryFee","pCPA","pDeliveryRate","pMisc","pProfit"].forEach(id=>{$(id).addEventListener("input",calcPricing)});
+["adUnits","adSellPrice","adDelivFee","adDelivRate","adMisc","adTargetProfit"].forEach(id=>{$(id).addEventListener("input",calcAdBudget)});
+document.querySelectorAll("#page-import input[type=number]").forEach(inp=>{if(!inp.dataset.idx&&!inp.dataset.rate)inp.addEventListener("input",()=>calcImport())});
 
-initTheme(); update();
+initTheme();updateImportPage();calcPricing();calcAdBudget();
 </script>
 </body>
 </html>
