@@ -312,14 +312,17 @@ function buildMarketToggle(el,active,cb){
   });
 }
 
-/* Rates */
+/* Rates - persist to localStorage */
+function saveRates(){try{localStorage.setItem("ic_rates",JSON.stringify(S.rates))}catch(e){}}
+function loadRates(){try{const s=localStorage.getItem("ic_rates");if(s){const r=JSON.parse(s);Object.keys(r).forEach(k=>{if(S.rates.hasOwnProperty(k))S.rates[k]=r[k]})}}catch(e){}}
+
 function renderRates(){
   const p=$("ratesPills"),e=$("ratesEdit");
   if(S.ratesEditing){p.style.display="none";e.style.display="flex";e.innerHTML="";
     [...Object.keys(CURRENCIES).map(k=>({key:k,label:`${k} → NGN`,prefix:"₦"})),{key:"NGN_GHS",label:"NGN → GHS",prefix:"₦",suffix:"per GH₵"}].forEach(r=>{
       const d=document.createElement("div");d.className="field";
       d.innerHTML=`<label>${r.label}</label><div class="field-input"><span class="prefix">${r.prefix}</span><input type="number" value="${S.rates[r.key]}" step="any">${r.suffix?`<span class="suffix">${r.suffix}</span>`:""}</div>`;
-      d.querySelector("input").addEventListener("input",ev=>{S.rates[r.key]=parseFloat(ev.target.value)||0;calcImport()});e.appendChild(d)});
+      d.querySelector("input").addEventListener("input",ev=>{S.rates[r.key]=parseFloat(ev.target.value)||0;saveRates();calcImport()});e.appendChild(d)});
   }else{p.style.display="flex";e.style.display="none";
     p.innerHTML=Object.keys(CURRENCIES).map(k=>`<div class="rates-pill"><span>${k}</span>₦${fmt(S.rates[k])}</div>`).join("")+`<div class="rates-pill"><span>GHS</span>₦${fmt(S.rates.NGN_GHS)}</div>`}
 }
@@ -550,7 +553,7 @@ function updateImportPage(){
 ["adUnits","adSellPrice","adDelivFee","adDelivRate","adMisc","adTargetProfit"].forEach(id=>{$(id).addEventListener("input",calcAdBudget)});
 document.querySelectorAll("#page-import input[type=number]").forEach(inp=>{if(!inp.dataset.idx&&!inp.dataset.rate)inp.addEventListener("input",()=>calcImport())});
 
-initTheme();updateImportPage();calcPricing();calcAdBudget();
+initTheme();loadRates();updateImportPage();calcPricing();calcAdBudget();
 </script>
 </body>
 </html>
