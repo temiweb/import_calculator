@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0a0a">
+<title>Import Calc</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #ffffff; --surface: #f7f7f6; --surface2: #eeeeed;
+  --border: #ddd; --border2: #ccc;
+  --text: #111; --text2: #333; --text3: #666; --text4: #999; --text5: #bbb;
+  --accent: #4f46e5; --accent-soft: #4f46e510;
+  --green: #059669; --green-bg: #05966912; --green-border: #05966930;
+  --red: #dc2626; --red-bg: #dc262610;
+  --amber: #d97706; --amber-bg: #d9770610; --amber-border: #d9770630;
+  --indigo-bg: #4f46e510; --indigo-border: #4f46e525;
+  --toggle-bg: #e7e5e4; --toggle-active: #1a1a1a; --toggle-active-text: #fff;
+  --card-text: #111; --field-bg: #f7f7f6;
+  --shadow: 0 1px 2px rgba(0,0,0,0.04);
+  --tab-inactive: #f7f7f6; --tab-active-ng: #059669; --tab-active-gh: #d97706;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a; --surface: #161616; --surface2: #1e1e1e;
+  --border: #2a2a2a; --border2: #3a3a3a;
+  --text: #f0f0f0; --text2: #ccc; --text3: #999; --text4: #666; --text5: #444;
+  --accent: #818cf8; --accent-soft: #818cf815;
+  --green: #34d399; --green-bg: #34d39915; --green-border: #34d39930;
+  --red: #f87171; --red-bg: #f8717115;
+  --amber: #fbbf24; --amber-bg: #fbbf2412; --amber-border: #fbbf2430;
+  --indigo-bg: #818cf812; --indigo-border: #818cf825;
+  --toggle-bg: #1e1e1e; --toggle-active: #f0f0f0; --toggle-active-text: #0a0a0a;
+  --card-text: #f0f0f0; --field-bg: #141414;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --tab-inactive: #161616; --tab-active-ng: #34d399; --tab-active-gh: #fbbf24;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh; -webkit-font-smoothing: antialiased;
+  transition: background 0.3s, color 0.3s;
+}
+.container { max-width: 540px; margin: 0 auto; padding: 36px 20px 80px; }
+
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; }
+.header-left { display: flex; flex-direction: column; gap: 4px; }
+.header-row { display: flex; align-items: center; gap: 10px; }
+.logo {
+  width: 34px; height: 34px; border-radius: 9px; background: var(--text); color: var(--bg);
+  display: flex; align-items: center; justify-content: center; font-size: 17px;
+}
+.header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; color: var(--text); }
+.header p { font-size: 13px; color: var(--text4); margin-left: 44px; }
+.theme-btn {
+  width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--surface); cursor: pointer; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; flex-shrink: 0; margin-top: 2px;
+}
+.theme-btn:hover { background: var(--surface2); }
+
+.section { margin-bottom: 28px; }
+.section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.section-bar { width: 3px; height: 18px; border-radius: 2px; }
+.section-title { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); }
+
+.toggle { display: inline-flex; background: var(--toggle-bg); border-radius: 10px; padding: 3px; gap: 2px; flex-wrap: wrap; }
+.toggle-btn {
+  padding: 7px 14px; font-size: 13px; font-family: 'DM Sans', sans-serif;
+  font-weight: 400; color: var(--text3); background: transparent; border: none;
+  border-radius: 8px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.toggle-btn.active { font-weight: 600; color: var(--toggle-active-text); background: var(--toggle-active); box-shadow: var(--shadow); }
+
+.field-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.field-row + .field-row { margin-top: 12px; }
+.field { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 120px; }
+.field.half { max-width: calc(50% - 6px); }
+.field label { font-size: 12px; color: var(--text4); font-weight: 500; }
+.field-input {
+  display: flex; align-items: center; background: var(--field-bg);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 0 14px; height: 44px; transition: border-color 0.2s;
+}
+.field-input:focus-within { border-color: var(--accent); }
+.field-input .prefix, .field-input .suffix { font-family: 'DM Mono', monospace; flex-shrink: 0; }
+.field-input .prefix { font-size: 14px; margin-right: 6px; color: var(--text3); }
+.field-input .suffix { font-size: 11px; margin-left: 6px; color: var(--text4); }
+.field-input input {
+  flex: 1; border: none; background: transparent; outline: none;
+  font-size: 15px; color: var(--text2); font-family: 'DM Mono', monospace;
+  width: 100%; min-width: 0;
+}
+.field-input input::placeholder { color: var(--text5); }
+
+.rates-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.rates-header span { font-size: 12px; color: var(--text5); }
+.rates-header button { font-size: 12px; color: var(--accent); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+.rates-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.rates-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px; font-size: 12px; font-family: 'DM Mono', monospace; color: var(--text2); }
+.rates-pill span { color: var(--text4); margin-right: 4px; }
+.rates-edit { display: flex; flex-direction: column; gap: 10px; }
+
+/* Logistics */
+.logistics-item {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px 16px; margin-bottom: 10px; transition: border-color 0.2s;
+}
+.logistics-item:hover { border-color: var(--border2); }
+.logistics-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.logistics-label { font-size: 13px; font-weight: 600; color: var(--text2); }
+.logistics-tag {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 5px;
+}
+.tag-ng { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.tag-gh { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.tag-custom { background: var(--indigo-bg); color: var(--accent); border: 1px solid var(--indigo-border); }
+.logistics-fields { display: flex; gap: 10px; align-items: flex-end; }
+.logistics-fields .field { min-width: 80px; }
+.logistics-per-unit { font-size: 12px; color: var(--text4); margin-top: 8px; font-family: 'DM Mono', monospace; }
+.logistics-per-unit strong { color: var(--text2); font-weight: 600; }
+.logistics-remove {
+  background: none; border: none; color: var(--text5); cursor: pointer;
+  font-size: 18px; line-height: 1; padding: 2px 6px; border-radius: 6px; transition: all 0.15s;
+}
+.logistics-remove:hover { color: var(--red); background: var(--red-bg); }
+
+.logistics-market-select {
+  font-size: 12px; font-family: 'DM Sans', sans-serif; font-weight: 500;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+  color: var(--text2); padding: 3px 8px; cursor: pointer; outline: none;
+}
+.logistics-market-select:focus { border-color: var(--accent); }
+
+.add-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  width: 100%; padding: 10px; background: var(--surface); border: 1px dashed var(--border);
+  border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 500;
+  color: var(--text4); font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+}
+.add-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+.editable-label {
+  background: none; border: none; border-bottom: 1px dashed var(--border);
+  font-size: 13px; font-weight: 600; color: var(--text2);
+  font-family: 'DM Sans', sans-serif; outline: none; padding: 0 0 2px; max-width: 180px;
+}
+.editable-label:focus { border-color: var(--accent); }
+
+/* Market Tabs */
+.market-tabs { display: flex; gap: 0; margin-bottom: 0; }
+.market-tab {
+  flex: 1; padding: 12px 16px; font-size: 13px; font-weight: 600;
+  font-family: 'DM Sans', sans-serif; border: 1px solid var(--border);
+  cursor: pointer; transition: all 0.2s; text-align: center;
+  background: var(--tab-inactive); color: var(--text4);
+}
+.market-tab:first-child { border-radius: 12px 0 0 0; }
+.market-tab:last-child { border-radius: 0 12px 0 0; }
+.market-tab:only-child { border-radius: 12px 12px 0 0; }
+.market-tab.active-ng {
+  background: var(--green-bg); color: var(--green);
+  border-color: var(--green-border); border-bottom-color: transparent;
+}
+.market-tab.active-gh {
+  background: var(--amber-bg); color: var(--amber);
+  border-color: var(--amber-border); border-bottom-color: transparent;
+}
+.market-tab .tab-flag { margin-right: 6px; }
+
+.market-panel {
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 14px 14px; padding: 18px; background: var(--surface);
+}
+
+/* Breakdown inside panel */
+.breakdown { margin-bottom: 16px; }
+.breakdown-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; }
+.breakdown-row:not(:last-child) { border-bottom: 1px solid var(--border); }
+.breakdown-row .lbl { font-size: 13px; color: var(--text3); }
+.breakdown-row .val { font-size: 13px; font-family: 'DM Mono', monospace; color: var(--text2); }
+.breakdown-row.total { margin-top: 4px; padding-top: 12px; }
+.breakdown-row.total .lbl { font-weight: 600; color: var(--text); }
+.breakdown-row.total .val { font-weight: 700; color: var(--text); font-size: 15px; }
+
+.cards { display: flex; gap: 12px; flex-wrap: wrap; }
+.card { border-radius: 12px; padding: 16px 18px; flex: 1; min-width: 150px; border: 1px solid; }
+.card .card-label { font-size: 11px; color: var(--text3); font-weight: 500; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+.card .card-value { font-size: 20px; font-weight: 700; color: var(--card-text); font-family: 'DM Mono', monospace; letter-spacing: -0.02em; }
+.card .card-sub { font-size: 11px; color: var(--text4); margin-top: 4px; font-family: 'DM Mono', monospace; }
+.card-green { background: var(--green-bg); border-color: var(--green-border); }
+.card-amber { background: var(--amber-bg); border-color: var(--amber-border); }
+
+.base-cost-note {
+  font-size: 12px; color: var(--text4); font-family: 'DM Mono', monospace;
+  padding: 10px 14px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 20px; text-align: center;
+}
+.base-cost-note strong { color: var(--text2); }
+
+@media (max-width: 400px) {
+  .container { padding: 24px 16px 60px; }
+  .field { min-width: 100px; }
+  .card { min-width: 130px; }
+  .card .card-value { font-size: 17px; }
+  .logistics-fields { flex-wrap: wrap; }
+  .market-tab { padding: 10px 12px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="header-row">
+        <div class="logo">📦</div>
+        <h1>Import Calc</h1>
+      </div>
+      <p>Landed cost calculator for imports</p>
+    </div>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀️</button>
+  </div>
+
+  <!-- Source Currency -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-bar" style="background:var(--text)"></div>
+      <div class="section-title">Source Currency</div>
+    </div>
+    <div class="toggle" id="srcToggle"></div>
+  </div>
+
+  <!-- Item Details -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-bar" style="background:var(--accent)"></div>
+      <div class="section-title">Item Details</div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label id="costLabel">Unit Cost (¥)</label><div class="field-input"><span class="prefix" id="costPrefix">¥</span><input type="number" id="itemCost" value="3.2" step="any"></div></div>
+      <div class="field"><label>Weight</label><div class="field-input"><input type="number" id="weight" value="100" step="any"><span class="suffix">grams</span></div></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Shipping ($/kg)</label><div class="field-input"><span class="prefix">$</span><input type="number" id="shippingPerKg" value="6.3" step="any"><span class="suffix">/kg</span></div></div>
+      <div class="field"><label>Clearing (₦/kg)</label><div class="field-input"><span class="prefix">₦</span><input type="number" id="clearingPerKg" value="1000" step="any"><span class="suffix">/kg</span></div></div>
+    </div>
+    <div class="field-row">
+      <div class="field half"><label>Quantity</label><div class="field-input"><input type="number" id="quantity" value="400" step="1"><span class="suffix">units</span></div></div>
+    </div>
+  </div>
+
+  <!-- Exchange Rates -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-bar" style="background:var(--amber)"></div>
+      <div class="section-title">Exchange Rates</div>
+    </div>
+    <div class="rates-header">
+      <span>Manual entry</span>
+      <button id="ratesToggle" onclick="toggleRatesEdit()">Edit rates</button>
+    </div>
+    <div id="ratesPills" class="rates-pills"></div>
+    <div id="ratesEdit" class="rates-edit" style="display:none"></div>
+  </div>
+
+  <!-- Logistics -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-bar" style="background:var(--green)"></div>
+      <div class="section-title">Logistics Fees</div>
+    </div>
+    <div id="logisticsList"></div>
+    <button class="add-btn" onclick="addLogisticsLine()">+ Add logistics line</button>
+  </div>
+
+  <!-- Base Cost -->
+  <div class="base-cost-note" id="baseCostNote"></div>
+
+  <!-- Market Breakdown -->
+  <div class="section" id="marketSection">
+    <div class="section-head">
+      <div class="section-bar" style="background:var(--green)"></div>
+      <div class="section-title">Landed Cost</div>
+    </div>
+    <div id="marketTabs" class="market-tabs"></div>
+    <div id="marketPanel" class="market-panel"></div>
+  </div>
+
+</div>
+
+<script>
+const CURRENCIES = {
+  USD: { label: "USD ($)", symbol: "$" },
+  CNY: { label: "Yuan (¥)", symbol: "¥" },
+  GBP: { label: "GBP (£)", symbol: "£" },
+  EUR: { label: "EUR (€)", symbol: "€" },
+};
+
+const state = {
+  src: "CNY", activeTab: "ng",
+  rates: { USD: 1518, CNY: 221.34, GBP: 1920, EUR: 1780, NGN_GHS: 116 },
+  ratesEditing: false, theme: "dark",
+  logistics: [
+    { id: 1, label: "Distribution (Nigeria)", market: "ng", totalCost: 0, units: 400 },
+    { id: 2, label: "Waybill Lagos → Accra", market: "gh", totalCost: 0, units: 400 },
+  ],
+  nextLogId: 3,
+};
+
+const $ = id => document.getElementById(id);
+const val = id => parseFloat($(id)?.value) || 0;
+const fmt = n => isNaN(n) ? "—" : n.toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+function toggleTheme() {
+  state.theme = state.theme === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", state.theme);
+  $("themeBtn").textContent = state.theme === "dark" ? "☀️" : "🌙";
+  try { localStorage.setItem("ic_theme", state.theme); } catch(e) {}
+}
+function initTheme() {
+  try { const s = localStorage.getItem("ic_theme"); if (s) state.theme = s; } catch(e) {}
+  document.documentElement.setAttribute("data-theme", state.theme);
+  $("themeBtn").textContent = state.theme === "dark" ? "☀️" : "🌙";
+}
+
+function buildToggle(el, opts, active, cb) {
+  el.innerHTML = "";
+  opts.forEach(o => {
+    const b = document.createElement("button");
+    b.className = "toggle-btn" + (o.value === active ? " active" : "");
+    b.textContent = o.label;
+    b.onclick = () => cb(o.value);
+    el.appendChild(b);
+  });
+}
+
+function renderRates() {
+  const pills = $("ratesPills"), edit = $("ratesEdit");
+  if (state.ratesEditing) {
+    pills.style.display = "none"; edit.style.display = "flex"; edit.innerHTML = "";
+    [
+      ...Object.keys(CURRENCIES).map(k => ({ key: k, label: `${k} → NGN`, prefix: "₦" })),
+      { key: "NGN_GHS", label: "NGN → GHS", prefix: "₦", suffix: "per GH₵" },
+    ].forEach(r => {
+      const d = document.createElement("div"); d.className = "field";
+      d.innerHTML = `<label>${r.label}</label><div class="field-input"><span class="prefix">${r.prefix}</span><input type="number" value="${state.rates[r.key]}" step="any">${r.suffix ? `<span class="suffix">${r.suffix}</span>` : ""}</div>`;
+      d.querySelector("input").addEventListener("input", e => { state.rates[r.key] = parseFloat(e.target.value) || 0; calculate(); });
+      edit.appendChild(d);
+    });
+  } else {
+    pills.style.display = "flex"; edit.style.display = "none";
+    pills.innerHTML = Object.keys(CURRENCIES).map(k =>
+      `<div class="rates-pill"><span>${k}</span>₦${fmt(state.rates[k])}</div>`
+    ).join("") + `<div class="rates-pill"><span>GHS</span>₦${fmt(state.rates.NGN_GHS)}</div>`;
+  }
+}
+function toggleRatesEdit() {
+  state.ratesEditing = !state.ratesEditing;
+  $("ratesToggle").textContent = state.ratesEditing ? "Done" : "Edit rates";
+  renderRates();
+}
+
+function renderLogistics() {
+  const list = $("logisticsList"); list.innerHTML = "";
+  state.logistics.forEach((item, idx) => {
+    const tagCls = item.market === "ng" ? "tag-ng" : item.market === "gh" ? "tag-gh" : "tag-custom";
+    const tagTxt = item.market === "ng" ? "Nigeria" : item.market === "gh" ? "Ghana" : "Both";
+    const pu = item.units > 0 ? item.totalCost / item.units : 0;
+    const isDefault = item.id <= 2;
+
+    const div = document.createElement("div"); div.className = "logistics-item";
+    div.innerHTML = `
+      <div class="logistics-top">
+        <div style="display:flex;align-items:center;gap:8px">
+          ${isDefault
+            ? `<span class="logistics-label">${item.label}</span>`
+            : `<input class="editable-label" value="${item.label}" data-idx="${idx}" data-f="label">`}
+          ${isDefault
+            ? `<span class="logistics-tag ${tagCls}">${tagTxt}</span>`
+            : `<select class="logistics-market-select" data-idx="${idx}" data-f="market">
+                <option value="ng" ${item.market==="ng"?"selected":""}>🇳🇬 Nigeria</option>
+                <option value="gh" ${item.market==="gh"?"selected":""}>🇬🇭 Ghana</option>
+                <option value="both" ${item.market==="both"?"selected":""}>Both</option>
+              </select>`}
+        </div>
+        ${!isDefault ? `<button class="logistics-remove" data-idx="${idx}">×</button>` : ""}
+      </div>
+      <div class="logistics-fields">
+        <div class="field" style="min-width:100px"><label>Total Cost (₦)</label><div class="field-input"><span class="prefix">₦</span><input type="number" value="${item.totalCost || ''}" step="any" placeholder="0" data-idx="${idx}" data-f="totalCost"></div></div>
+        <div class="field" style="min-width:80px;max-width:120px"><label>Units</label><div class="field-input"><input type="number" value="${item.units}" step="1" data-idx="${idx}" data-f="units"></div></div>
+      </div>
+      <div class="logistics-per-unit">Per unit: <strong>₦${fmt(pu)}</strong></div>`;
+    list.appendChild(div);
+  });
+
+  list.querySelectorAll("input[data-f='totalCost'], input[data-f='units']").forEach(inp => {
+    inp.addEventListener("input", e => {
+      const i = parseInt(e.target.dataset.idx);
+      state.logistics[i][e.target.dataset.f] = parseFloat(e.target.value) || 0;
+      const pu = state.logistics[i].units > 0 ? state.logistics[i].totalCost / state.logistics[i].units : 0;
+      e.target.closest(".logistics-item").querySelector(".logistics-per-unit strong").textContent = "₦" + fmt(pu);
+      calculate();
+    });
+  });
+  list.querySelectorAll("input[data-f='label']").forEach(inp => {
+    inp.addEventListener("input", e => { state.logistics[parseInt(e.target.dataset.idx)].label = e.target.value; });
+  });
+  list.querySelectorAll("select[data-f='market']").forEach(sel => {
+    sel.addEventListener("change", e => {
+      state.logistics[parseInt(e.target.dataset.idx)].market = e.target.value;
+      calculate();
+    });
+  });
+  list.querySelectorAll(".logistics-remove").forEach(btn => {
+    btn.addEventListener("click", e => {
+      state.logistics.splice(parseInt(e.currentTarget.dataset.idx), 1);
+      renderLogistics(); calculate();
+    });
+  });
+}
+
+function addLogisticsLine() {
+  state.logistics.push({ id: state.nextLogId++, label: "New logistics fee", market: "ng", totalCost: 0, units: val("quantity") || 400 });
+  renderLogistics(); calculate();
+}
+
+function hasGhanaFees() {
+  return state.logistics.some(l => (l.market === "gh" || l.market === "both") && l.totalCost > 0);
+}
+
+function calculate() {
+  const itemCost = val("itemCost"), weight = val("weight");
+  const shippingPerKg = val("shippingPerKg"), clearingPerKg = val("clearingPerKg");
+  const quantity = val("quantity");
+  const srcRate = state.rates[state.src] || 0, usdRate = state.rates.USD || 0;
+  const ghsRate = state.rates.NGN_GHS || 1;
+
+  // Base costs (shared)
+  const itemN = itemCost * srcRate;
+  const shipN = shippingPerKg * usdRate * (weight / 1000);
+  const clearN = clearingPerKg * (weight / 1000);
+  const baseN = itemN + shipN + clearN;
+
+  // Per-market logistics
+  let ngLogN = 0, ghLogN = 0;
+  const ngLogLines = [], ghLogLines = [];
+
+  state.logistics.forEach(item => {
+    const pu = item.units > 0 ? item.totalCost / item.units : 0;
+    if (pu <= 0) return;
+    if (item.market === "ng" || item.market === "both") {
+      ngLogN += pu;
+      ngLogLines.push({ label: item.label, naira: pu });
+    }
+    if (item.market === "gh" || item.market === "both") {
+      ghLogN += pu;
+      ghLogLines.push({ label: item.label, naira: pu });
+    }
+  });
+
+  const ngUnitN = baseN + ngLogN;
+  const ghUnitN = baseN + ghLogN;
+  const ghUnitC = ghUnitN / ghsRate;
+
+  // Base cost note
+  $("baseCostNote").innerHTML = `Base cost (before logistics): <strong>₦${fmt(baseN)}</strong> per unit`;
+
+  // Show Ghana?
+  const showGh = hasGhanaFees();
+  if (!showGh && state.activeTab === "gh") state.activeTab = "ng";
+
+  // Tabs
+  const tabs = $("marketTabs");
+  tabs.innerHTML = `
+    <div class="market-tab ${state.activeTab === 'ng' ? 'active-ng' : ''}" onclick="switchTab('ng')">
+      <span class="tab-flag">🇳🇬</span>Nigeria
+    </div>
+    ${showGh ? `<div class="market-tab ${state.activeTab === 'gh' ? 'active-gh' : ''}" onclick="switchTab('gh')">
+      <span class="tab-flag">🇬🇭</span>Ghana
+    </div>` : ""}`;
+
+  // Panel border color
+  const panel = $("marketPanel");
+  if (state.activeTab === "ng") {
+    panel.style.borderColor = "var(--green-border)";
+    tabs.querySelector(".market-tab:first-child").style.borderBottomColor = "transparent";
+  } else {
+    panel.style.borderColor = "var(--amber-border)";
+    if (tabs.querySelector(".market-tab:last-child")) tabs.querySelector(".market-tab:last-child").style.borderBottomColor = "transparent";
+  }
+
+  // Render active tab
+  if (state.activeTab === "ng") {
+    const rows = [
+      { label: "Item cost", val: itemN },
+      { label: "Shipping", val: shipN },
+      { label: "Port clearing", val: clearN },
+      ...ngLogLines.map(l => ({ label: l.label, val: l.naira })),
+    ];
+    panel.innerHTML = `
+      <div class="breakdown">
+        ${rows.map(r => `<div class="breakdown-row"><span class="lbl">${r.label}</span><span class="val">₦${fmt(r.val)}</span></div>`).join("")}
+        <div class="breakdown-row total"><span class="lbl">Landed cost / unit</span><span class="val">₦${fmt(ngUnitN)}</span></div>
+      </div>
+      <div class="cards">
+        <div class="card card-green"><div class="card-label">Unit Cost</div><div class="card-value">₦${fmt(ngUnitN)}</div></div>
+        <div class="card card-green"><div class="card-label">Total · ${quantity} units</div><div class="card-value">₦${fmt(ngUnitN * quantity)}</div></div>
+      </div>`;
+  } else {
+    const rows = [
+      { label: "Item cost", val: itemN / ghsRate },
+      { label: "Shipping", val: shipN / ghsRate },
+      { label: "Port clearing", val: clearN / ghsRate },
+      ...ghLogLines.map(l => ({ label: l.label, val: l.naira / ghsRate })),
+    ];
+    panel.innerHTML = `
+      <div class="breakdown">
+        ${rows.map(r => `<div class="breakdown-row"><span class="lbl">${r.label}</span><span class="val">GH₵${fmt(r.val)}</span></div>`).join("")}
+        <div class="breakdown-row total"><span class="lbl">Landed cost / unit</span><span class="val">GH₵${fmt(ghUnitC)}</span></div>
+      </div>
+      <div class="cards">
+        <div class="card card-amber"><div class="card-label">Unit Cost</div><div class="card-value">GH₵${fmt(ghUnitC)}</div><div class="card-sub">₦${fmt(ghUnitN)}</div></div>
+        <div class="card card-amber"><div class="card-label">Total · ${quantity} units</div><div class="card-value">GH₵${fmt(ghUnitC * quantity)}</div><div class="card-sub">₦${fmt(ghUnitN * quantity)}</div></div>
+      </div>`;
+  }
+}
+
+function switchTab(tab) {
+  state.activeTab = tab;
+  calculate();
+}
+
+function update() {
+  const cur = CURRENCIES[state.src];
+  $("costLabel").textContent = `Unit Cost (${cur.symbol})`;
+  $("costPrefix").textContent = cur.symbol;
+  buildToggle($("srcToggle"), Object.entries(CURRENCIES).map(([k,v]) => ({value:k,label:v.label})), state.src, v => { state.src = v; update(); });
+  renderRates(); renderLogistics(); calculate();
+}
+
+document.querySelectorAll("#app input[type=number]").forEach(inp => {
+  if (!inp.dataset.idx && !inp.dataset.rate) inp.addEventListener("input", calculate);
+});
+
+initTheme(); update();
+</script>
+</body>
+</html>
